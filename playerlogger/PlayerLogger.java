@@ -3,7 +3,6 @@ package playerlogger.playerlogger;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -24,7 +23,7 @@ public final class PlayerLogger extends JavaPlugin implements Listener {
         // implement listeners
         getServer().getPluginManager().registerEvents(this, this);
         logger = Logger.getLogger("PlayerLog");
-        String fileName = "/home/davemc/serverfiles/logs/PlayerLog-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + ".log";
+        String fileName = "../logs/PlayerLog-" + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + ".log";
         File logFile = new File(fileName);
 
         try{
@@ -40,12 +39,7 @@ public final class PlayerLogger extends JavaPlugin implements Listener {
             e.printStackTrace();
         }
     }
-
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
-    }
-
+    
     @EventHandler
     public void onDisconnect(PlayerQuitEvent e)
     {
@@ -53,15 +47,5 @@ public final class PlayerLogger extends JavaPlugin implements Listener {
         Location playerLocation = leaver.getLocation();
         logger.info(String.format("Player " + leaver.getName() + " left at; x: %f; y: %f; z: %f;", playerLocation.getX(), playerLocation.getY(), playerLocation.getZ()));
     }
-
-    /*
-    @EventHandler
-    public void onConnect(PlayerJoinEvent e)
-    {
-        Player leaver =  e.getPlayer();
-        Location playerLocation = leaver.getLocation();
-        getServer().broadcastMessage(String.format("x: %f; y: %f; z: %f;", playerLocation.getX(), playerLocation.getY(), playerLocation.getZ()));
-    }
-    */
 
 }
